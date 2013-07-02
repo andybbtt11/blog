@@ -1,2 +1,1 @@
-blog
-====
+Light Weight Blog using Backbone, Node, Express, Grunt, Compass and MongoDB
