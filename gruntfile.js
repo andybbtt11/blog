@@ -21,19 +21,14 @@ module.exports = function(grunt) {
 
     jshint: {
       all: [
-        'Gruntfile.js',
-        'public/js/app.js',
-        'public/js/main.js',
-        'public/js/router.js',
-        'public/js/bootstrap.js',
-        '/public/js/lib/*.js'
+        'Gruntfile.js'
       ]
     },
 
     requirejs: {
       options: {
         almond: true,
-        mainConfigFile: 'public/js/bootstrap.js',
+        mainConfigFile: 'javascripts/bootstrap.js',
         include: [
         ],
         out: 'public/js/compiled.js',
@@ -64,7 +59,7 @@ module.exports = function(grunt) {
     watch: {
       js: {
         files: [
-          'public/js/*.js'
+          'javascripts/*.js'
         ],
         tasks: [ 'requirejs:dist' ]
       },
