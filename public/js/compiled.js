@@ -13113,7 +13113,12 @@ require.config({
 
         // Components
         'app-view-component':  'component/app/app-view-component',
-        'app-view':  'component/app/view/AppView'
+        'app-view':  'component/app/view/AppView',
+        'blog-list-component' : 'component/blog-list/blog-list-component',
+        'blog-list-container-view' : 'component/blog-list/view/BlogListContainerView',
+        'blog-list-view' : 'component/blog-list/view/BlogListView',
+        'blog-model' : 'component/blog-list/model/blog-model',
+        'blog-collection' : 'component/blog-list/collection/blog-collection'
     }
 
 });
@@ -13159,5 +13164,126 @@ define('app-view-component',['require','app-view'], function( require ) {
 		console.log('app-view-component.js');
 		var appView = new AppView();
 		appView.render();
+	};
+});
+define('blog-model',['require','backbone'], function( require ) {
+
+	
+
+	var Backbone = require( 'backbone' );
+
+	var model = Backbone.Model.extend({
+
+		urlRoot: '/blogging',
+
+		defaults: function() {
+			return {
+				title: 'Test title',
+				subtitle: 'Test subtitle'
+			};
+		},
+
+		initialize: function(){
+		}
+	});
+
+	return model;
+});
+define('blog-collection',['require','underscore','backbone','blog-model'], function( require ) {
+
+	
+
+	var _ = require( 'underscore' ),
+		Backbone = require( 'backbone' ),
+		Blog = require( 'blog-model' );
+
+	var collection = Backbone.Collection.extend({
+
+		url: '/blogging',
+
+		model: Blog,
+
+		initialize: function() {
+			// Figure out how to populate
+		}
+
+	});
+
+	return collection;
+});
+define('blog-list-view',['require','jquery','backbone'], function( require ) {
+
+    
+
+    var $ = require( 'jquery' ),
+        Backbone = require( 'backbone' );
+
+    var view = Backbone.View.extend({
+
+        tagName: 'div',
+
+        events: {
+        },
+
+        initialize: function() {
+            console.log('BlogListView.js');
+        },
+
+        render: function() { 
+            this.$el.html("blog post " + this.model.get('title').toString());
+            return this.el
+        }
+
+    });
+
+    return view;
+});
+define('blog-list-container-view',['require','underscore','jquery','backbone','blog-collection','blog-list-view'], function( require ) {
+
+    
+
+    var _ = require( 'underscore' ),
+        $ = require( 'jquery' ),
+        Backbone = require( 'backbone' ),
+        BlogCollection = require( 'blog-collection' ),
+        BlogListView = require( 'blog-list-view' );
+
+    var view = Backbone.View.extend({
+
+        el: $( '.app' ),
+        hashList: [],
+        contentList: null,
+
+        initialize: function() {
+            this.collection = new BlogCollection();
+            var that = this;
+            console.log('BlogListContainerView.js');
+        },
+
+        render: function() {
+
+            var that = this;
+
+            _.each( this.collection.models, function( model ){
+                var post = new BlogListView({ model: model });
+                that.$el.append( post.render() );
+            }, this);
+
+            return this;
+        }
+
+    });
+
+    return view;
+});
+define('blog-list-component',['require','blog-list-container-view'], function( require ) {
+
+	
+
+	var BlogListContainterView = require( 'blog-list-container-view' );
+
+	return function() {
+		var blogListContainterView = new BlogListContainterView();
+		blogListContainterView.render();
 	};
 });

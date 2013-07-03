@@ -30,7 +30,8 @@ module.exports = function(grunt) {
         almond: true,
         mainConfigFile: 'javascripts/bootstrap.js',
         include: [
-            'app-view-component'
+            'app-view-component',
+            'blog-list-component'
         ],
         out: 'public/js/compiled.js',
         name: 'bootstrap',
