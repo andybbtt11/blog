@@ -9,19 +9,12 @@ define( function( require ) {
     var Backbone = require( 'backbone' );
 
     var Router = Backbone.Router.extend({
-
-        routes: {
-            '' : 'test'
-        },
-
-        initialize: function(){
-            console.log('router');
-        },
-
-        test: function(){
-            console.log('tested');
+        loadComponent: function( component ) {
+            //require([ component ], function( component ) {
+                component();
+            //});
         }
     });
-
+    console.log('router.js');
     return new Router();
 });

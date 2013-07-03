@@ -13,7 +13,11 @@ require.config({
 
         // App
         'app':      'app',
-        'router':   'router'
+        'router':   'router',
+
+        // Components
+        'app-view-component':  'component/app/app-view-component',
+        'app-view':  'component/app/view/AppView'
     }
 
 });

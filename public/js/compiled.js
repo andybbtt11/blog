@@ -1,7 +1,3 @@
-/*! Blog - v0.0.1 - Built: 2013-07-02 4:05:26 PM CST
-*   Copyright (c) 2013 Andy Babbitt All Rights Reserved.
-*/
-
 
 /**
  * almond 0.2.5 Copyright (c) 2011-2012, The Dojo Foundation All Rights Reserved.
@@ -13035,20 +13031,13 @@ define('router',['require','backbone'], function( require ) {
     var Backbone = require( 'backbone' );
 
     var Router = Backbone.Router.extend({
-
-        routes: {
-            '' : 'test'
-        },
-
-        initialize: function(){
-            console.log('router');
-        },
-
-        test: function(){
-            console.log('tested');
+        loadComponent: function( component ) {
+            //require([ component ], function( component ) {
+                component();
+            //});
         }
     });
-
+    console.log('router.js');
     return new Router();
 });
 /************************************************************
@@ -13064,13 +13053,31 @@ define('app',['require','underscore','jquery','backbone','router'], function( re
 		Backbone = require( 'backbone' ),
 		router = require( 'router' );
 
+	// Add route-specific components here.
+	router.route( '', 'home', function() {
+		//var heroComponent = require( 'hero-component' );
+		//this.loadComponent( heroComponent );
+	});
+
 	return {
 		initialize: function() {
-           console.log('app.js');
-           Backbone.history.start({ pushState: true, root: '/' });
-		}
-	};	
+			console.log('app.js');
+			var initializedComponents = [];
 
+			// Figure out which components we should instantiate.
+			_.each( $( '[data-require]' ), function(  component ) {
+				var components = $( component ).data( 'require' ).split( ',' );
+				_.each( components, function( componentProperty ) {
+					if( initializedComponents.indexOf(componentProperty) < 0 ) {
+						initializedComponents.push(componentProperty);
+						router.loadComponent( require( componentProperty ) );
+					}
+				});
+			}, this);
+
+			Backbone.history.start({ pushState: false, root: '/' });
+		}
+	};
 });
 /************************************************************
  FILE: public/js/main.js
@@ -13102,10 +13109,55 @@ require.config({
 
         // App
         'app':      'app',
-        'router':   'router'
+        'router':   'router',
+
+        // Components
+        'app-view-component':  'component/app/app-view-component',
+        'app-view':  'component/app/view/AppView'
     }
 
 });
 
 require([ 'main' ]);
 define("bootstrap", function(){});
+
+define('app-view',['require','underscore','jquery','backbone'], function( require ) {
+
+	
+
+	var _ = require( 'underscore' ),
+		$ = require( 'jquery' ),
+		Backbone = require( 'backbone' );
+
+	var view = Backbone.View.extend({
+
+		el: $( '.app' ),
+
+		initialize: function() {
+			console.log('AppView.js');
+		},
+		render: function() {
+			return this;
+		}
+
+	});
+
+	return view;
+
+});
+/************************************************************
+ FILE: component/app/app-view-component.js
+************************************************************/
+
+define('app-view-component',['require','app-view'], function( require ) {
+
+	
+
+	var AppView = require( 'app-view' );
+
+	return function() {
+		console.log('app-view-component.js');
+		var appView = new AppView();
+		appView.render();
+	};
+});

@@ -30,6 +30,7 @@ module.exports = function(grunt) {
         almond: true,
         mainConfigFile: 'javascripts/bootstrap.js',
         include: [
+            'app-view-component'
         ],
         out: 'public/js/compiled.js',
         name: 'bootstrap',
@@ -59,7 +60,9 @@ module.exports = function(grunt) {
     watch: {
       js: {
         files: [
-          'javascripts/*.js'
+          'javascripts/*.js',
+          'javascripts/**/*.js',
+          'javascripts/**/**/*.js'
         ],
         tasks: [ 'requirejs:dist' ]
       },
