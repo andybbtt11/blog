@@ -13,7 +13,7 @@ define( function( require ) {
 		model: Blog,
 
 		initialize: function() {
-			// Figure out how to populate
+
 		}
 
 	});

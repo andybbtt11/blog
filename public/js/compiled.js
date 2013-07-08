@@ -11456,6 +11456,8 @@ if ( typeof module === "object" && module && typeof module.exports === "object" 
 //     For all details and documentation:
 //     http://backbonejs.org
 
+
+
 (function(root, factory) {
   // Set up Backbone appropriately for the environment.
   if (typeof exports !== 'undefined') {
@@ -13075,23 +13077,58 @@ define('app',['require','underscore','jquery','backbone','router'], function( re
 				});
 			}, this);
 
-			Backbone.history.start({ pushState: false, root: '/' });
+		    Backbone.history.start({ pushState: false, root: '/' });
 		}
 	};
 });
+var tpl = {
+   
+      templates:{},
+
+      loadTemplates:function (names, callback) {
+   
+          var that = this;
+   
+          var loadTemplate = function (index) {
+              var name = names[index];
+              console.log('Loading template: ' + name);
+              $.get('public/template/' + name + '.html', function (data) {
+                  that.templates[name] = data;
+                  index++;
+                  if (index < names.length) {
+                      loadTemplate(index);
+                  } else {
+                      callback();
+                  }
+              });
+          }
+   
+          loadTemplate(0);
+      },
+   
+      get:function (name) {
+          return this.templates[name];
+      }
+   
+  };
+define("templateLoader", function(){});
+
 /************************************************************
  FILE: public/js/main.js
 ************************************************************/
 
-define('main',['require','jquery','app'], function( require ) {
+define('main',['require','jquery','app','templateLoader'], function( require ) {
 	
 
 	var $ = require( 'jquery' ),
-		app = require( 'app' );
+		app = require( 'app' ),
+		templateLoader = require('templateLoader');
 
 	$( function() {
 		console.log('main.js');
-		app.initialize();
+		tpl.loadTemplates(['blog-list-item'], function () {
+			app.initialize();
+		});
 	});
 });
 /************************************************************
@@ -13106,6 +13143,7 @@ require.config({
         'underscore':   'lib/underscore',
         'jquery':       'lib/jquery',
         'backbone':     'lib/backbone',
+        'templateLoader': 'lib/templateLoader',
 
         // App
         'app':      'app',
@@ -13204,19 +13242,20 @@ define('blog-collection',['require','underscore','backbone','blog-model'], funct
 		model: Blog,
 
 		initialize: function() {
-			// Figure out how to populate
+
 		}
 
 	});
 
 	return collection;
 });
-define('blog-list-view',['require','jquery','backbone'], function( require ) {
+define('blog-list-view',['require','jquery','underscore','backbone'], function( require ) {
 
     
 
     var $ = require( 'jquery' ),
-        Backbone = require( 'backbone' );
+       _ = require( 'underscore' ),
+       Backbone = require( 'backbone' );
 
     var view = Backbone.View.extend({
 
@@ -13226,11 +13265,12 @@ define('blog-list-view',['require','jquery','backbone'], function( require ) {
         },
 
         initialize: function() {
-            console.log('BlogListView.js');
+            this.template = _.template(tpl.get('blog-list-item'));
+            this.bind('reset', this.render, this);  
         },
 
         render: function() { 
-            this.$el.html("blog post " + this.model.get('title').toString());
+            this.$el.html( this.template( this.model.toJSON() ));
             return this.el
         }
 
@@ -13250,14 +13290,21 @@ define('blog-list-container-view',['require','underscore','jquery','backbone','b
 
     var view = Backbone.View.extend({
 
-        el: $( '.app' ),
-        hashList: [],
-        contentList: null,
+        el: $( '.list' ),
 
         initialize: function() {
-            this.collection = new BlogCollection();
             var that = this;
-            console.log('BlogListContainerView.js');
+
+            this.collection = new BlogCollection();
+
+            if( this.collection.length === 0 ){
+                this.collection.fetch().complete( function(){
+                    that.render();
+                });
+            } else {
+                this.render();
+            }
+            
         },
 
         render: function() {

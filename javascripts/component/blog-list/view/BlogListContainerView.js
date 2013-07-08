@@ -10,14 +10,21 @@ define( function( require ) {
 
     var view = Backbone.View.extend({
 
-        el: $( '.app' ),
-        hashList: [],
-        contentList: null,
+        el: $( '.list' ),
 
         initialize: function() {
-            this.collection = new BlogCollection();
             var that = this;
-            console.log('BlogListContainerView.js');
+
+            this.collection = new BlogCollection();
+
+            if( this.collection.length === 0 ){
+                this.collection.fetch().complete( function(){
+                    that.render();
+                });
+            } else {
+                this.render();
+            }
+            
         },
 
         render: function() {

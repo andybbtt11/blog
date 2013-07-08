@@ -33,7 +33,7 @@ define( function( require ) {
 				});
 			}, this);
 
-			Backbone.history.start({ pushState: false, root: '/' });
+		    Backbone.history.start({ pushState: false, root: '/' });
 		}
 	};
 });

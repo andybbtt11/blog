@@ -3,7 +3,8 @@ define( function( require ) {
     'use strict';
 
     var $ = require( 'jquery' ),
-        Backbone = require( 'backbone' );
+       _ = require( 'underscore' ),
+       Backbone = require( 'backbone' );
 
     var view = Backbone.View.extend({
 
@@ -13,11 +14,12 @@ define( function( require ) {
         },
 
         initialize: function() {
-            console.log('BlogListView.js');
+            this.template = _.template(tpl.get('blog-list-item'));
+            this.bind('reset', this.render, this);  
         },
 
         render: function() { 
-            this.$el.html("blog post " + this.model.get('title').toString());
+            this.$el.html( this.template( this.model.toJSON() ));
             return this.el
         }
 

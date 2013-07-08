@@ -10,6 +10,7 @@ require.config({
         'underscore':   'lib/underscore',
         'jquery':       'lib/jquery',
         'backbone':     'lib/backbone',
+        'templateLoader': 'lib/templateLoader',
 
         // App
         'app':      'app',

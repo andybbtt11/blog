@@ -6,10 +6,13 @@ define( function( require ) {
 	'use strict';
 
 	var $ = require( 'jquery' ),
-		app = require( 'app' );
+		app = require( 'app' ),
+		templateLoader = require('templateLoader');
 
 	$( function() {
 		console.log('main.js');
-		app.initialize();
+		tpl.loadTemplates(['blog-list-item'], function () {
+			app.initialize();
+		});
 	});
 });
