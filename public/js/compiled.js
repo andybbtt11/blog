@@ -13298,8 +13298,10 @@ define('blog-list-container-view',['require','underscore','jquery','backbone','b
             this.collection = new BlogCollection();
 
             if( this.collection.length === 0 ){
-                this.collection.fetch().complete( function(){
-                    that.render();
+                this.collection.fetch({
+                    success: function(){
+                        that.render();
+                    }
                 });
             } else {
                 this.render();

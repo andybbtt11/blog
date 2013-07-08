@@ -18,8 +18,10 @@ define( function( require ) {
             this.collection = new BlogCollection();
 
             if( this.collection.length === 0 ){
-                this.collection.fetch().complete( function(){
-                    that.render();
+                this.collection.fetch({
+                    success: function(){
+                        that.render();
+                    }
                 });
             } else {
                 this.render();
