@@ -3,7 +3,7 @@
 <html class="no-js">
 
   <head>
-    <title>A blank HTML5 page</title>
+    <title>Simple Forum</title>
     <meta charset="utf-8" />
 
     <link rel="stylesheet" href="public/css/compiled.css">
@@ -12,14 +12,23 @@
 
   <body>
     <header class="header">
-      <a class="logo" href="#"></a>
-      <nav class="user">
-        <a href="#">Account</a>
-        <a href="#">Sign Out</a>
-      </nav>
+      <div class="container">
+        <a class="logo" href="#"></a>
+        <h1>Name of Site</h1>
+        <nav class="user">
+          <a href="#">Account</a>
+          <a href="#">Sign Out</a>
+        </nav>
+      </div>
     </header>
 
-    <div class="list" data-require="blog-list-component"></div>
+    <div class="app">
+      <div class="container">
+        <h1>Name of Section</h2>
+        <p>Description of section</p>
+        <div class="list" data-require="blog-list-component"></div>
+      </div>
+    </div>
 
     <script data-main="public/js/bootstrap" src="public/js/compiled.js"></script> 
   </body>

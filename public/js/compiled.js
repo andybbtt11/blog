@@ -1,4 +1,4 @@
-/*! Blog - v0.0.1 - Built: 2013-07-08 11:54:10 AM CST
+/*! Blog - v0.0.1 - Built: 2013-07-08 10:27:57 PM CST
 *   Copyright (c) 2013 Andy Babbitt All Rights Reserved.
 */
 

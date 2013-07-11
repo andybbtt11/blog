@@ -80,34 +80,78 @@ body, html {
   height: 100%;
 }
 
-.list p {
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+a {
+  font-size: 16px;
+  color: #444;
+  text-decoration: none;
+}
+
+.app {
+  width: 100%;
+}
+.app .container {
+  margin: 0 auto;
+  max-width: 800px;
+}
+.app .container h1 {
+  margin: 40px 20px 10px 20px;
+}
+.app .container p {
+  margin: 10px 20px 40px 20px;
+}
+.app .container .list div {
   background-color: #eee;
   padding: 10px;
+  min-height: 60px;
   margin: 0 20px;
   margin-bottom: 10px;
 }
-.list p:hover {
+.app .container .list div:hover {
   background-color: #444;
   color: #fff;
+}
+.app .container .list div h2 {
+  font-weight: bold;
+}
+.app .container .list div h3 {
+  font-style: italic;
 }
 
 header {
   width: 100%;
-  height: 96px;
+  height: 120px;
   display: block;
+  margin-bottom: 20px;
+  background-color: #eee;
+}
+header .container {
+  margin: 0 auto;
+  max-width: 800px;
 }
 header .logo {
-  width: 48px;
-  height: 48px;
-  margin: 24px;
+  width: 60px;
+  height: 60px;
+  margin: 30px 20px;
   float: left;
   display: block;
   background-color: #444;
   color: #fff;
 }
+header h1 {
+  float: left;
+  margin-top: 44px;
+}
 header nav {
   float: right;
-  margin-top: 36px;
+  margin-top: 48px;
   padding-right: 24px;
 }
 header nav a {
