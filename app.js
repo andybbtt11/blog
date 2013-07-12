@@ -35,6 +35,10 @@ app.get('/', function(request, response) {
 	response.render('public/index.html');
 });
 
+app.get('/post', function(request, response) {
+	response.render('public/post.html');
+});
+
 // API locations
 app.get('/blogging', routes.posts.all);
 app.get('/blogging/:id', routes.posts.one);

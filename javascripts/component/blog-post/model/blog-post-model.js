@@ -10,9 +10,10 @@ define( function( require ) {
 
 		defaults: function() {
 			return {
-				id: null,
+				_id: null,
 				title: 'Test title',
-				subtitle: 'Test subtitle'
+				subtitle: 'Test subtitle',
+				content: 'Test content'
 			};
 		},
 

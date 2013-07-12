@@ -34,8 +34,8 @@ define( function( require ) {
             var that = this;
 
             _.each( this.collection.models, function( model ){
-                var post = new BlogListView({ model: model });
-                that.$el.append( post.render() );
+                var blogListItem = new BlogListView({ model: model });
+                that.$el.append( blogListItem.render() );
             }, this);
 
             return this;

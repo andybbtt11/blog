@@ -101,11 +101,14 @@ a {
   margin: 0 auto;
   max-width: 800px;
 }
-.app .container h1 {
-  margin: 40px 20px 10px 20px;
+.app .container h1.title {
+  margin: 20px 20px 10px 20px;
 }
-.app .container p {
-  margin: 10px 20px 40px 20px;
+.app .container p.title {
+  margin: 0px 20px 20px 20px;
+}
+.app .container a.goback {
+  margin: 20px;
 }
 .app .container .list div {
   background-color: #eee;
@@ -122,6 +125,18 @@ a {
   font-weight: bold;
 }
 .app .container .list div h3 {
+  font-style: italic;
+}
+.app .container .post {
+  background-color: #eee;
+  padding: 10px;
+  min-height: 60px;
+  margin: 20px 20px;
+}
+.app .container .post h2 {
+  font-weight: bold;
+}
+.app .container .post h3 {
   font-style: italic;
 }
 

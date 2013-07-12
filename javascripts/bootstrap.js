@@ -23,7 +23,11 @@ require.config({
         'blog-list-container-view' : 'component/blog-list/view/BlogListContainerView',
         'blog-list-view' : 'component/blog-list/view/BlogListView',
         'blog-model' : 'component/blog-list/model/blog-model',
-        'blog-collection' : 'component/blog-list/collection/blog-collection'
+        'blog-collection' : 'component/blog-list/collection/blog-collection',
+        'blog-post-component' : 'component/blog-post/blog-post-component',
+        'blog-post-view' : 'component/blog-post/view/blog-post-view',
+        'blog-post-model' : 'component/blog-post/model/blog-post-model',
+        'blog-post-collection' : 'component/blog-post/collection/blog-post-collection'
     }
 
 });
